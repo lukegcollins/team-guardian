@@ -1,0 +1,28 @@
+{
+  "name": "team-management-service",
+  "version": "1.0.0",
+  "description": "The team management service for the Team Guardian application.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./srcserver.js",
+    "stop": "lsof -ti :3000 | xargs kill",
+    "seed": "npx sequelize-cli db:seed:all"
+  },
+  "author": "GitHub @LukeGCollins",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "nodemon": "^2.0.22",
+    "pg": "^8.10.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.31.0",
+    "sequelize-cli": "^6.6.0",
+    "winston": "^3.8.2"
+  }
+}
