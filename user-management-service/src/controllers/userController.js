@@ -56,21 +56,45 @@ exports.createUser = async (req, res) => {
  * @param {Object} res - Express response object
  */
 exports.getAllUsers = async (req, res) => {
-    logger.info(`[${fn}]: Attempting to fetch all users.`);
+    logger.info(`[${fn}]: Attempting to fetch all users`);
     try {
         const users = await User.findAll({
             include: { model: Role, as: "Role" },
             attributes: { exclude: ["roleId"] },
         });
 
+        if (!users) {
+            logger.info(`[${fn}]: No users found`);
+            return res.status(404).json({ message: 'No users found' });
+        }
 
-        res.status(200).json({ users });
+        // Prepare the response object
+        const usersResponse = users.map(user => ({
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            password: user.password,
+            activeAt: user.activeAt,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+            role: {
+                id: user.Role.id,
+                name: user.Role.name,
+                description: user.Role.description,
+                createdAt: user.Role.createdAt,
+                updatedAt: user.Role.updatedAt
+            }
+        }));
+
+        res.status(200).json({ users: usersResponse });
     } catch (error) {
         logger.error(`[${fn}]: Error fetching users`, { error });
         logger.debug(`[${fn}]: ${error}`, { error });
         res.status(500).json({ message: 'Error fetching users', error });
     }
 };
+
 
 /**
  * Fetch user by ID
@@ -91,13 +115,33 @@ exports.getUserById = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        res.status(200).json({ user });
+        // Prepare the response object  (Ugly but its the best i can do for now)
+        const userResponse = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            password: user.password,
+            activeAt: user.activeAt,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+            role: {
+                id: user.Role.id,
+                name: user.Role.name,
+                description: user.Role.description,
+                createdAt: user.Role.createdAt,
+                updatedAt: user.Role.updatedAt
+            }
+        };
+
+        res.status(200).json({ user: userResponse });
     } catch (error) {
         logger.error(`[${fn}]: Error fetching user`, { error });
         logger.debug(`[${fn}]: ${error}`, { error });
         res.status(500).json({ message: 'Error fetching user', error });
     }
 };
+
 
 /**
  * Update user by ID

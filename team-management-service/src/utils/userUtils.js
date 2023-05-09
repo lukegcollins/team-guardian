@@ -20,7 +20,7 @@ const connString = `http://${serviceHost}:${serivcePort}/users/`;
  * 
  * @param {Integer} userId - The ID of the user to check.
  */
-const checkUserExists = async (userId) => {
+const fetchUser = async (userId) => {
     try {
         // Log a message indicating that we are checking if the user exists
         logger.info(`[${fn}]: Checking if user id ${userId} exists on UMS.`);
@@ -34,8 +34,24 @@ const checkUserExists = async (userId) => {
             }
         });
 
-        // If the response is successful, return true to indicate that the user exists
-        return true;
+        // If the response is successful, extract the necessary fields from the response data
+        const { id, firstName, lastName, email, activeAt, role } = response.data.user;
+
+        // Prepare the response object
+        const user = {
+            id,
+            firstName,
+            lastName,
+            email,
+            activeAt,
+            role: {
+                id: role.id,
+                name: role.name,
+                description: role.description
+            }
+        };
+
+        return user;
     } catch (error) {
         console.log(error)
         // If the response is not successful, check if the user does not exist (404 error)
@@ -44,11 +60,11 @@ const checkUserExists = async (userId) => {
         } else {
             // If the response is not successful and the error is not a 404 error,
             // log an error message and throw an error
-            logger.error(`[${fn}]: Error checking if user ${userId} exists.`, { error: error })
+            logger.error(`[${fn}]: Error checking if user ${userId} exists on the user-managment-service.`, { error: error })
             logger.debug(`[${fn}]: ${error}`, { error: error })
             throw new Error('Error checking if user exists');
         }
     }
 };
 
-module.exports = checkUserExists;
+module.exports = fetchUser;
