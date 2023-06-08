@@ -22,8 +22,7 @@ app.use('/memberships', membershipRoutes);
 
 // Start the server
 var server = app.listen(process.env.TMS_APP_PORT || 1002, function () {
-
-    logger.info(`[${fn}]: The team-management-service has started on port ${server.address().port} in ${process.env.TMS_NODE_ENV} mode.`, { filename: fn, port: server.address().port, mode: process.env.NODE_ENV });
+    logger.info(`[${fn}]: The team-management-service has started on port ${server.address().port} in ${process.env.TMS_NODE_ENV} mode.`, { filename: fn, port: server.address().port, mode: process.env.TMS_NODE_ENV });
 
     if (process.env.TMS_NODE_ENV !== 'production') {
         logger.info(`[${fn}]: INFO level console logging enabled.`, { filename: fn });

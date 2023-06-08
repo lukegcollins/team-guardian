@@ -1,0 +1,28 @@
+{
+  "name": "frontend-service",
+  "version": "1.0.0",
+  "description": "The user management service for the Team Guardian application.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js",
+    "stop": "lsof -ti :3000 | xargs kill"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "connect-flash": "^0.1.1",
+    "connect-pg-simple": "^9.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.4",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
+    "path": "^0.12.7",
+    "pg": "^8.11.0",
+    "winston": "^3.9.0"
+  }
+}

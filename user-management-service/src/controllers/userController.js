@@ -56,8 +56,8 @@ exports.createUser = async (req, res) => {
  * @param {Object} res - Express response object
  */
 exports.getAllUsers = async (req, res) => {
-    logger.info(`[${fn}]: Attempting to fetch all users`);
     try {
+        logger.info(`[${fn}]: Attempting to fetch all users`);
         const users = await User.findAll({
             include: { model: Role, as: "Role" },
             attributes: { exclude: ["roleId"] },
@@ -102,8 +102,8 @@ exports.getAllUsers = async (req, res) => {
  * @param {Object} res - Express response object
  */
 exports.getUserById = async (req, res) => {
-    logger.info(`[${fn}]: Attempting to fetch user by ID`);
     try {
+        logger.info(`[${fn}]: Attempting to fetch user by ID`);
         const { id } = req.params;
         const user = await User.findByPk(id, {
             include: { model: Role, as: "Role" },
@@ -115,7 +115,7 @@ exports.getUserById = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Prepare the response object  (Ugly but its the best i can do for now)
+        // Prepare the response object
         const userResponse = {
             id: user.id,
             firstName: user.firstName,
@@ -149,8 +149,8 @@ exports.getUserById = async (req, res) => {
  * @param {Object} res - Express response object
  */
 exports.updateUser = async (req, res) => {
-    logger.info(`[${fn}]: Attempting to update user by ID`);
     try {
+        logger.info(`[${fn}]: Attempting to update user by ID`);
         const { id } = req.params;
         const { firstName, lastName, email, password, roleId } = req.body;
 
@@ -200,6 +200,7 @@ exports.updateCurrentUser = async (req, res) => {
     }
 };
 
+
 /**
  * Delete user by ID
  * @param {Object} req - Express request object
@@ -207,6 +208,7 @@ exports.updateCurrentUser = async (req, res) => {
  */
 exports.deleteUser = async (req, res) => {
     try {
+        logger.info(`[${fn}]: Attempting to delete user by ID`);
         const { id } = req.params;
         const user = await User.findByPk(id);
 

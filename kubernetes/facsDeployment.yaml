@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: first-aid-certificate-service
+  labels:
+    app: first-aid-certificate-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: first-aid-certificate-service
+  template:
+    metadata:
+      labels:
+        app: first-aid-certificate-service
+    spec:
+      containers:
+        - name: first-aid-certificate-service
+          image: lgcollins/first-aid-certificate-service:latest
+          ports:
+            - containerPort: 1004
+          env:
+            - name: FACS_NODE_ENV
+              value: "development"
+            - name: FACS_APP_PORT
+              value: "1004"
+            - name: FACS_LOG_DIR
+              value: "logs/"
+            - name: FACS_API_URL
+              value: "localhost"
+            - name: FACS_API_PORT
+              value: "1004"
+            - name: FACS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: first-aid-certificate-service-secrets
+                  key: FACS_API_KEY
+            - name: FACS_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: first-aid-certificate-service-secrets
+                  key: FACS_DB_USER
+            - name: FACS_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: first-aid-certificate-service-secrets
+                  key: FACS_DB_PASS
+            - name: FACS_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: first-aid-certificate-service-secrets
+                  key: FACS_DB_NAME
+            - name: FACS_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: first-aid-certificate-service-secrets
+                  key: FACS_DB_HOST
+            - name: FACS_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: first-aid-certificate-service-secrets
+                  key: FACS_DB_PORT
+            - name: API_KEYS
+              valueFrom:
+                secretKeyRef:
+                  name: first-aid-certificate-service-secrets
+                  key: API_KEYS
+            - name: JWT_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: first-aid-certificate-service-secrets
+                  key: JWT_TOKEN_SECRET
+            - name: JWT_TOKEN_EXPIRY
+              valueFrom:
+                secretKeyRef:
+                  name: first-aid-certificate-service-secrets
+                  key: JWT_TOKEN_EXPIRY
+          resources:
+                limits:
+                  cpu: "0.5"
+                  memory: "512Mi"

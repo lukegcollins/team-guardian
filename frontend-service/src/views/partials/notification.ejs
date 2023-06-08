@@ -1,0 +1,51 @@
+<style>
+.message-box {
+    background-color: white;
+    border: 2px solid red;
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.message-box p {
+    margin: 0;
+    padding-left: 10px;
+}
+</style>
+
+<% if(success_msg!= ''){ %>
+    <div class="message-box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 50 50">
+            <g fill="none" stroke="green" stroke-width="2">
+                <path d="M25 10 v20"/>
+                <circle cx="25" cy="40" r="1"/>
+            </g>
+        </svg>
+        <p><%= success_msg %></p> 
+    </div>
+<% } %> 
+
+<% if(error_msg!= ''){ %>
+    <div class="message-box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 50 50">
+            <g fill="none" stroke="red" stroke-width="2">
+                <path d="M25 10 v20"/>
+                <circle cx="25" cy="40" r="1"/>
+            </g>
+        </svg>
+        <p><%= error_msg %></p> 
+    </div>
+<% } %> 
+
+<% if(error!= ''){ %>
+    <div class="message-box">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 50 50">
+            <g fill="none" stroke="red" stroke-width="2">
+                <path d="M25 10 v20"/>
+                <circle cx="25" cy="40" r="1"/>
+            </g>
+        </svg>
+        <p><%= error %></p> 
+    </div>
+<% } %> 

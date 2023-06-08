@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-management-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-management-service
+  template:
+    metadata:
+      labels:
+        app: user-management-service
+    spec:
+      containers:
+        - name: user-management-service
+          image: lgcollins/user-management-service:latest
+          ports:
+            - containerPort: 1001
+          env:
+            - name: UMS_NODE_ENV
+              value: "development"
+            - name: UMS_APP_PORT
+              value: "1001"
+            - name: UMS_LOG_DIR
+              value: "logs/"
+            - name: UMS_API_URL
+              value: "localhost"
+            - name: UMS_API_PORT
+              value: "1001"
+            - name: UMS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: user-management-service-secrets
+                  key: UMS_API_KEY
+            - name: UMS_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: user-management-service-secrets
+                  key: UMS_DB_USER
+            - name: UMS_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: user-management-service-secrets
+                  key: UMS_DB_PASS
+            - name: UMS_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: user-management-service-secrets
+                  key: UMS_DB_NAME
+            - name: UMS_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: user-management-service-secrets
+                  key: UMS_DB_HOST
+            - name: UMS_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: user-management-service-secrets
+                  key: UMS_DB_PORT
+            - name: API_KEYS
+              valueFrom:
+                secretKeyRef:
+                  name: user-management-service-secrets
+                  key: API_KEYS
+            - name: JWT_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: user-management-service-secrets
+                  key: JWT_TOKEN_SECRET
+            - name: JWT_TOKEN_EXPIRY
+              valueFrom:
+                secretKeyRef:
+                  name: user-management-service-secrets
+                  key: JWT_TOKEN_EXPIRY
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: "512Mi"

@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "PostgreSQL",
+    "database": "team-guardian-first-aid-certificate-service",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "Postgres",
+    "password": "PostgreSQL",
+    "database": "team-guardian-first-aid-certificate-service",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "Postgres",
+    "password": "PostgreSQL",
+    "database": "team-guardian-first-aid-certificate-service",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

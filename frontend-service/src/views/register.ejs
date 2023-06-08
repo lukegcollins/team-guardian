@@ -1,0 +1,87 @@
+<%- include('partials/header') %>
+<%- include('partials/header') %>
+<section class="login register">
+    <div class="wrapper">
+        <div class="box-left register-left">
+            <img src="/img/shapes.png" alt="">
+        </div>
+        <div class="box-right">
+            <div class="box box-blue">
+              <h5><strong>Join as a Volunteer</strong></h5>
+              <p><strong>Empowering Community Sports Heroes</strong></p>
+            </div>
+            <%- include('partials/notification') %>
+            <form action="/user/register" method="POST" class="box" id="form">
+                <div class="form-control">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="flex: 1; margin-right: 10px;">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="First Name" value="<%= typeof firstName != 'undefined' ? firstName : '' %>" required>
+                        </div>
+                        <div style="flex: 1; margin-left: 10px;">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" value="<%= typeof lastName != 'undefined' ? lastName : '' %>" required>
+                        </div>
+                    </div>
+                    <small></small>
+                </div>
+                <div class="form-control">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Email Address" value="<%= typeof email != 'undefined' ? email : '' %>" required>
+                    <small></small>
+                </div>
+                <div class="form-control">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <small></small>
+                </div>
+
+                <button class="btn-green" type="submit">Register</button>
+                <small>By clicking the button, you are agreeing to our <a href="">Terms and Services</a></small>
+                <small>Already have an account ? <a href="login">Login here.</a></small>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+window.onload = function() {
+    document.getElementById("firstName").focus();
+    
+    document.getElementById('form').addEventListener('submit', function(event) {
+        let firstName = document.getElementById('firstName');
+        let lastName = document.getElementById('lastName');
+        let emailAddress = document.getElementById('emailAddress');
+        let userPassword = document.getElementById('userPassword');
+
+        // Clear previous error messages
+        firstName.setCustomValidity('');
+        lastName.setCustomValidity('');
+        emailAddress.setCustomValidity('');
+        userPassword.setCustomValidity('');
+
+        // Check if the fields are not empty
+        if(firstName.value === '') {
+            firstName.setCustomValidity('First name is required.');
+        }
+        if (lastName.value === '') {
+            lastName.setCustomValidity('Last name is required.');
+        }
+        if (emailAddress.value === '') {
+            emailAddress.setCustomValidity('Email address is required.');
+        }
+        if (userPassword.value === '') {
+            userPassword.setCustomValidity('Password is required.');
+        }
+
+        // Trigger form validation
+        if (!event.target.checkValidity()) {
+            event.preventDefault();
+        }
+    });
+};
+</script>
+
+
+
+<%- include('partials/footer') %>
+

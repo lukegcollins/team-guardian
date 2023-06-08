@@ -28,14 +28,12 @@ exports.createTeam = async (req, res) => {
     }
 };
 
-
 /**
  * Fetch all teams
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
 exports.getAllTeams = async (req, res) => {
-    logger.info(`[${fn}]: Attempting to fetch all teams.`);
     try {
         logger.info(`[${fn}]: Attempting to fetch all teams.`);
         const teams = await Team.findAll();

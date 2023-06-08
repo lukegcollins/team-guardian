@@ -1,0 +1,106 @@
+steps:
+  # Step 1: Build Docker image for User Management Service (UMS)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/sit737-23t1-collins-ce512ad/user-management-service', 'user-management-service']
+
+  # Step 2: Push Docker image for User Management Service (UMS)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/sit737-23t1-collins-ce512ad/user-management-service']
+  
+  # Step 3: Build Docker image for Team Management Service (TMS)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/sit737-23t1-collins-ce512ad/team-management-service', 'team-management-service']
+
+  # Step 4: Push Docker image for Team Management Service (TMS)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/sit737-23t1-collins-ce512ad/team-management-service']
+  
+  # Step 5: Build Docker image for Working With Children's Check Validation Service (WWCCVS)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/sit737-23t1-collins-ce512ad/wwcc-validation-service', 'wwcc-validation-service']
+
+  # Step 6: Push Docker image for Working With Children's Check Validation Service (WWCCVS)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/sit737-23t1-collins-ce512ad/wwcc-validation-service']
+  
+  # Step 7: Build Docker image for First Aid Certificate Service (FACS)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/sit737-23t1-collins-ce512ad/first-aid-certificate-service', 'first-aid-certificate-service']
+
+  # Step 8: Push Docker image for First Aid Certificate Service (FACS)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/sit737-23t1-collins-ce512ad/first-aid-certificate-service']
+  
+  # Step 9: Build Docker image for Frontend Management Service (FMS)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/sit737-23t1-collins-ce512ad/frontend-management-service', 'frontend-management-service']
+
+  # Step 10: Push Docker image for Frontend Management Service (FMS)
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/sit737-23t1-collins-ce512ad/frontend-management-service']
+
+  # Step 11: Use YAML anchors to define common environment variables
+  - env: &env
+      - 'CLOUDSDK_COMPUTE_REGION=australia-southeast2'
+      - 'CLOUDSDK_COMPUTE_ZONE=australia-southeast2-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+
+  # Step 12: Apply facsSecrets.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './facsSecrets.yaml']
+    env: *env
+
+  # Step 13: Apply facsService.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './facsService.yaml']
+    env: *env
+
+  # Step 14: Apply facsDeployment.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './facsDeployment.yaml']
+    env: *env
+
+  # Step 15: Apply tmsSecrets.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './tmsSecrets.yaml']
+    env: *env
+
+  # Step 16: Apply tmsService.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './tmsService.yaml']
+    env: *env
+
+  # Step 17: Apply tmsDeployment.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './tmsDeployment.yaml']
+    env: *env
+
+  # Step 18: Apply umsSecrets.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './umsSecrets.yaml']
+    env: *env
+
+  # Step 19: Apply umsService.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './umsService.yaml']
+    env: *env
+
+  # Step 20: Apply umsDeployment.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './umsDeployment.yaml']
+    env: *env
+
+  # Step 21: Apply wwccSecrets.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './wwccSecrets.yaml']
+    env: *env
+
+  # Step 22: Apply wwccService.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './wwccService.yaml']
+    env: *env
+
+  # Step 23: Apply wwccDeployment.yaml using kubectl
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['apply', '-f', './wwccDeployment.yaml']
+    env: *env

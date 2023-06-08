@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wwcc-validation-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wwcc-validation-service
+  template:
+    metadata:
+      labels:
+        app: wwcc-validation-service
+    spec:
+      containers:
+        - name: wwcc-validation-service
+          image: lgcollins/wwcc-validation-service:latest
+          ports:
+            - containerPort: 1003
+          env:
+            - name: WWCCVS_NODE_ENV
+              value: "development"
+            - name: WWCCVS_APP_PORT
+              value: "1003"
+            - name: WWCCVS_LOG_DIR
+              value: "logs/"
+            - name: WWCCVS_API_URL
+              value: "localhost"
+            - name: WWCCVS_API_PORT
+              value: "1003"
+            - name: WWCCVS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: wwcc-validation-service-secrets
+                  key: WWCCVS_API_KEY
+            - name: WWCCVS_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: wwcc-validation-service-secrets
+                  key: WWCCVS_DB_USER
+            - name: WWCCVS_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: wwcc-validation-service-secrets
+                  key: WWCCVS_DB_PASS
+            - name: WWCCVS_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: wwcc-validation-service-secrets
+                  key: WWCCVS_DB_NAME
+            - name: WWCCVS_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: wwcc-validation-service-secrets
+                  key: WWCCVS_DB_HOST
+            - name: WWCCVS_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: wwcc-validation-service-secrets
+                  key: WWCCVS_DB_PORT
+            - name: API_KEYS
+              valueFrom:
+                secretKeyRef:
+                  name: wwcc-validation-service-secrets
+                  key: API_KEYS
+            - name: JWT_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: wwcc-validation-service-secrets
+                  key: JWT_TOKEN_SECRET
+            - name: JWT_TOKEN_EXPIRY
+              valueFrom:
+                secretKeyRef:
+                  name: wwcc-validation-service-secrets
+                  key: JWT_TOKEN_EXPIRY
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: "512Mi"

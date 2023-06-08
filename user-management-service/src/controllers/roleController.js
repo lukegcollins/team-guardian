@@ -60,7 +60,6 @@ exports.findOrCreateVolunteerRole = async () => {
  * @param {Object} res - Express response object
  */
 exports.getAllRoles = async (req, res) => {
-    logger.info(`[${fn}]: Attempting to fetch all roles.`);
     try {
         logger.info(`[${fn}]: Attempting to fetch all roles.`);
         const roles = await Role.findAll();
@@ -123,7 +122,7 @@ exports.updateRole = async (req, res) => {
         logger.info(`Role with ID ${id} updated successfully`);
         res.status(200).json({ message: 'Role updated successfully', role });
     } catch (error) {
-        logger.error(`Error updating role: ${error.message}`);
+        logger.error(`[${fn}]: Error updating role: ${error.message}`);
         logger.debug(`[${fn}]: ${error}`, { error });
         res.status(500).json({ message: 'Error updating role', error });
     }
@@ -149,7 +148,7 @@ exports.deleteRole = async (req, res) => {
         logger.info(`Role with ID ${id} deleted successfully`);
         res.status(200).json({ message: 'Role deleted successfully' });
     } catch (error) {
-        logger.error(`Error deleting role: ${error.message}`);
+        logger.error(`[${fn}]: Error deleting role: ${error.message}`);
         logger.debug(`[${fn}]: ${error}`, { error });
         res.status(500).json({ message: 'Error deleting role', error });
     }

@@ -47,37 +47,24 @@ exports.createMembership = async (req, res) => {
     }
 };
 
-
-// Get all memberships
+/**
+ * Get all memberships
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.getAllMemberships = async (req, res) => {
     try {
         logger.info(`[${fn}]: Attempting to fetch all memberships.`);
+        const memberships = await Membership.findAll();
 
-        const memberships = await Membership.findAll({
-            // include: [
-            //     {
-            //         model: Team,
-            //         attributes: ['id', 'name'],
-            //     },
-            // ],
-        });
-
-        const membershipsResponse = [];
-
-        for (const membership of memberships) {
-
-            // Prepare the response object
-            const membershipResponse = {
-                membershipId: membership.id,
-                isManager: membership.isManager,
-                userId: membership.userId,
-                teamId: membership.teamId,
-                createdAt: membership.createdAt,
-                updatedAt: membership.updatedAt,
-            };
-
-            membershipsResponse.push(membershipResponse);
-        }
+        const membershipsResponse = memberships.map(membership => ({
+            membershipId: membership.id,
+            isManager: membership.isManager,
+            userId: membership.userId,
+            teamId: membership.teamId,
+            createdAt: membership.createdAt,
+            updatedAt: membership.updatedAt,
+        }));
 
         logger.info(`[${fn}]: Fetched all memberships successfully.`);
         res.status(200).json({ memberships: membershipsResponse });
@@ -88,36 +75,33 @@ exports.getAllMemberships = async (req, res) => {
     }
 };
 
-// Get all memberships
+/**
+ * Get all memberships with extended details
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.getAllMembershipsExtended = async (req, res) => {
     try {
         logger.info(`[${fn}]: Attempting to fetch all memberships.`);
-
         const memberships = await Membership.findAll({
             include: [
                 {
-                    model: Team, as: "Team",
+                    model: Team,
+                    as: "Team",
                     attributes: ['id', 'name'],
                 },
             ],
         });
 
-        if (!memberships) {
-            logger.info(`[${fn}]: No memberships found`);
-            return res.status(404).json({ message: `No memberships found` });
-        }
-
         const membershipsResponse = [];
 
         for (const membership of memberships) {
-            // Fetch user details using fetchUser method
             const userDetails = await fetchUser(membership.userId);
             if (!userDetails) {
                 logger.info(`[${fn}]: No user found with ID ${membership.userId}`);
                 continue;
             }
 
-            // Prepare the response object
             const membershipResponse = {
                 membershipId: membership.id,
                 isManager: membership.isManager,
@@ -137,7 +121,11 @@ exports.getAllMembershipsExtended = async (req, res) => {
     }
 };
 
-// Get a membership by ID
+/**
+ * Get a membership by ID
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.getMembershipById = async (req, res) => {
     try {
         logger.info(`[${fn}]: Attempting to fetch membership by ID.`);
@@ -147,7 +135,8 @@ exports.getMembershipById = async (req, res) => {
             where: { id: membershipId },
             include: [
                 {
-                    model: Team, as: "Team",
+                    model: Team,
+                    as: "Team",
                     attributes: ['id', 'name'],
                 },
             ],
@@ -158,14 +147,12 @@ exports.getMembershipById = async (req, res) => {
             return res.status(404).json({ message: `No membership found with ID ${membershipId}` });
         }
 
-        // Fetch user details using fetchUser method
         const userDetails = await fetchUser(membership.userId);
         if (!userDetails) {
             logger.info(`[${fn}]: No user found with ID ${membership.userId}`);
             return res.status(404).json({ message: `No user found with ID ${membership.userId}` });
         }
 
-        // Prepare the response object
         const membershipResponse = {
             membershipId: membership.id,
             isManager: membership.isManager,
@@ -182,8 +169,11 @@ exports.getMembershipById = async (req, res) => {
     }
 };
 
-
-
+/**
+ * Update a membership by ID
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.updateMembershipById = async (req, res) => {
     try {
         logger.info(`[${fn}]: Attempting to update membership by ID.`);
@@ -226,7 +216,11 @@ exports.updateMembershipById = async (req, res) => {
     }
 };
 
-// Delete a membership by ID
+/**
+ * Delete a membership by ID
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 exports.deleteMembershipById = async (req, res) => {
     try {
         logger.info(`[${fn}]: Attempting to delete membership by ID.`);

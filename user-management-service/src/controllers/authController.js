@@ -20,6 +20,11 @@ exports.register = async (req, res) => {
         const { firstName, lastName, email, password } = req.body;
         const roleId = await roleController.findOrCreateVolunteerRole(); // Call the function and await the returned value
 
+        if (!firstName || !lastName || !email || !password) {
+            logger.info(`[${fn}]: Missing required fields`);
+            return res.status(400).json({ message: 'Missing required fields' });
+        }
+
         // Check if the email is already registered.
         const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {

@@ -1,0 +1,120 @@
+<%- include('partials/header') %>
+  <header id="top" class="w-full flex nav-sticky flex-col sm:sticky bg-white pin-t pin-r pin-l">
+    <nav id="site-menu" class="flex flex-col sm:flex-row w-full justify-between items-center px-4 sm:px-6 py-1 bg-white shadow sm:shadow-none">
+      <div class="w-full  sm:w-auto self-start sm:self-center flex flex-row sm:flex-none flex-no-wrap justify-between items-center py-3">
+        <a href="#" class="no-underline py-1 logo"><h3>Team Guardian</h3></a>
+        <button id="menuBtn" class="hamburger block sm:hidden focus:outline-none open" type="button" onclick="navToggle();">
+          <i id="menuIcon" class="fas fa-bars"></i>
+        </button>
+      </div>
+      <div id="menu" class=" sm:w-auto self-start sm:self-center sm:flex flex-col sm:flex-row items-center h-full py-1 pb-4 sm:py-0 sm:pb-0 hidden">
+        <a class="text-lg no-underline sm:w-auto sm:pr-4 mx-2 py-2 sm:py-1 sm:pt-2" href="#salient-features" target="_blank">Explore</a>
+        <a class="  text-lg no-underline sm:w-auto sm:pr-4 mx-2 py-2 sm:py-1 sm:pt-2" href="/user/login">Login</a>
+        <a class=" btnYellow text-lg no-underline  mx-2 sm:px-4 py-2 sm:py-1 sm:pt-2" href="/user/register">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+  <!--  -->
+  <section class="hero">
+<h1>Team Guardian, Empowering Teams.</h1>
+<p class="text-center">Stay ahead in creating secure sporting environments with Team Guardian. Effortlessly manage, automate, and elevate your club's safety standards to ensure a safe and thriving experience for everyone involved.</p>
+  <div class="btn-wrapper">
+    <button class="btn-dark" onclick="scrollToFeatures()"><i class="fal fa-telescope"></i> Find Out More!</button>
+    <button class="btn-light"><i class="fal fa-sign-in"></i> <a href="/user/login">Login</a></button>
+  </div>
+</section>
+<!-- Feature card section START-->
+<section class="container features flex flex-col">
+  <!-- Features headline  -->
+  <h2 id="salient-features"><i class="fal fa-rocket-launch"></i> Salient Features</h2>
+  <!-- Card -->
+  <div class="card-grid mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5">
+    <!-- Card1 -->
+    <div class="card2 rounded-lg overflow-hidden shadow-lg">
+      <img class="w-full" src="https://image.freepik.com/free-vector/check-list-with-businessman-flat-design_79603-145.jpg" alt="">
+      <div class="px-6 py-4">
+        <div class="mb-2"><h4>Streamline Compliance</h4></div>
+        <p>
+          Simplify you compliance with our completely automated Working With Children Check (WWCC) and First Aid Management System (FAMS).
+        </p>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="card2 rounded-lg overflow-hidden shadow-lg">
+      <img class="w-full" src="https://image.freepik.com/free-vector/teacher-explaining-task-student-passing-test-drawing-ticks-matrix-flat-vector-illustration-education-class-lesson_74855-8599.jpg" alt="">
+      <div class="px-6 py-4">
+        <div class="mb-2"><h4>Effortless Tracking</h4></div>
+        <p>
+          Stay on top of your volunteers' contract details and their compliance status. Easily track and manage their certification and documentation requirements, ensuring a fully compliant and qualified team.
+        </p>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="card2 rounded-lg overflow-hidden shadow-lg">
+      <img class="w-full" src="https://image.freepik.com/free-vector/marketing-group-working-business-solution-flat-icon_1262-18774.jpg" alt="">
+      <div class="px-6 py-4">
+        <div class="mb-2"><h4>Team Compliance taken to next level</h4></div>
+        <p>
+         Automating compliance and safety saves time, reduces errors, ensures consistency, promotes accountability, and enables teams to focus on core objectives.
+        </p>
+      </div>
+    </div>
+  </div>
+    
+</section>
+<!-- Feature card section END-->
+<!-- Section promotion -->
+<section class="features yellow-bg">
+  <h2 class="mb-3"><i class="fal fa-star-shooting"></i> Is your team ready to join the league?</h2>
+  <div class="flex justify-center mt-8">
+    <button class="btn-light last-btn"><i class="fal fa-telescope"></i> Sign Up</button>
+  </div>
+</section>
+<!-- footer start -->
+<footer>
+  <div>
+      <div class="max-w-screen-xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+        <nav class="-mx-5 -my-2 flex flex-wrap justify-center">
+          <div class="px-5 py-2">
+            <a href="https://omkarkulkarni.netlify.app" target="_blank" class=" leading-6 text-gray-100 hover:text-gray-400">
+              About this project
+            </a>
+          </div>
+          <div class="px-5 py-2">
+            <a href="https://github.com/OmkarK45/TaskWise-Get-work-done" target="_blank" class=" leading-6 text-gray-100 hover:text-gray-400">
+              Github
+            </a>
+          </div>
+          <div class="px-5 py-2">
+            <a href="https://www.linkedin.com/in/omkark45" target="_blank" class=" leading-6 text-gray-100 hover:text-gray-400">
+              Hire Me
+            </a>
+          </div>
+          <div class="px-5 py-2">
+            <a href="https://www.linkedin.com/in/omkark45" target="_blank" class=" leading-6 text-gray-100 hover:text-gray-400">
+              LinkedIn
+            </a>
+          </div>
+        </nav>
+        <div class="mt-8 flex justify-center">
+         
+          <a href="https://twitter.com/omkar_k45" target="_blank" class="ml-6 text-gray-200 hover:text-gray-500">
+            <span class="sr-only">Twitter</span>
+            <i class="fab fa-twitter"></i>
+          </a>
+          
+          <a href="https://github.com/omkark45" target="_blank"  class="ml-6 text-gray-200 hover:text-gray-500">
+            <span class="sr-only">GitHub</span>
+            <i class="fab fa-github"></i>
+          </a>
+          
+        </div>
+      </div>
+          <div class="py-3 last">
+            <h5 class="text-center leading-6 text-gray-400">
+              &copy; 2020 Omkar Kulkarni, Inc. All rights reserved.
+            </h5>
+          </div>
+    </div>
+</footer>
+<%- include('partials/footer') %>

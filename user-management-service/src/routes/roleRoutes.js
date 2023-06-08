@@ -1,11 +1,12 @@
 const express = require('express');
 const roleController = require('../controllers/roleController');
 const router = express.Router();
+const apiKeyMiddleware = require('../middleware/apiKeyMiddleware');
 
-router.post('/', roleController.createRole);
-router.get('/', roleController.getAllRoles);
-router.get('/:id', roleController.getRoleById);
-router.patch('/:id', roleController.updateRole);
-router.delete('/:id', roleController.deleteRole);
+router.post('/', apiKeyMiddleware(), roleController.createRole);
+router.get('/', apiKeyMiddleware(), roleController.getAllRoles);
+router.get('/:id', apiKeyMiddleware(), roleController.getRoleById);
+router.patch('/:id', apiKeyMiddleware(), roleController.updateRole);
+router.delete('/:id', apiKeyMiddleware(), roleController.deleteRole);
 
 module.exports = router;
